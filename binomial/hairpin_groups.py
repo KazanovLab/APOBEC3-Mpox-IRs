@@ -5,8 +5,13 @@ from copy import deepcopy
 import matplotlib.pyplot as plt
 from itertools import product
 
+import yaml
+
+with open("config.yaml", "r") as file:
+    params = yaml.safe_load(file)
+
 # parameters
-choice_type = "max_cov" # options: greedy, max_cov, min_cov, most_stable
+choice_type = params["hairpin_selection_type"] # options: greedy, max_cov, min_cov, most_stable
 
 # min len hairpin
 def min_coverage(group):

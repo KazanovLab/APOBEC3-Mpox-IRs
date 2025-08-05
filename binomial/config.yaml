@@ -1,0 +1,2 @@
+structure_type: "hairpin" # options: hairpin, spacer, ct_end, c_end
+hairpin_selection_type: "most_stable" # options: greedy, max_cov, min_cov, most_stable, all

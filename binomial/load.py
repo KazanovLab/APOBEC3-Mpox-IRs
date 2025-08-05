@@ -3,8 +3,13 @@ import re
 import os
 import pandas as pd
 
+import yaml
+
+with open("config.yaml", "r") as file:
+    params = yaml.safe_load(file)
+
 # parameters
-hit_type = "hairpin"  # options: hairpin, spacer, ct_end, c_end
+hit_type = params["structure_type"]  # options: hairpin, spacer, ct_end, c_end
 priority_is_max = False  # max or min hirpin energy, now always False
 
 # paths
