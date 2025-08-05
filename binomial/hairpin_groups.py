@@ -86,7 +86,7 @@ def most_stable(group):
 # fixing hairpins
 
 groups = find_groups(all_hairpins_list)
-print(len(groups))
+print(f"Number of overlapping hairpin groups: ", len(groups))
 fixed_hairpins = []
 for group in groups:
     choice = []
@@ -144,9 +144,9 @@ if hit_type == "c_end":
     end_targets, all_positions = genome.only_c_g(fixed_hairpins)
     targets_p = len(end_targets) / len(all_positions)
 
-print(len(end_targets))
-print("tp:", targets_p * 100)
-print(f"{len(fixed_hairpins)} of {len(all_hairpins_list)} hairpins are chose")
+#print(len(end_targets))
+print(f"Fraction of targets in structures: {targets_p * 100:.2f}%")
+print(f"{len(fixed_hairpins)} out of {len(all_hairpins_list)} hairpins were selected")
 print(f"coverage percentage of fixed hairpins: {total_len * 100/genome.length}")
 print(f"coverage percentage of fixed hairpins(spacers): {spacer_len * 100/genome.length}")
 
@@ -165,7 +165,7 @@ for mut in mutations_list:
             hit = 1
             break
     total_real_hits += hit
-print("total real hits", total_real_hits)
+print("Mutations in structures:", total_real_hits)
 
 # check
 
@@ -244,13 +244,13 @@ plt.grid(True, axis="y", linestyle="--", alpha=0.7)
 
 # threshold count binom
 
-print("binom")
+print("Binomial distribution:")
 right = threshold(hits_b, 95)
 left = threshold(hits_b, 5)
-print(f"left threshold: {left}")
-print(f"right threshold: {right}")
+print(f"left tail: {left}")
+print(f"right tail: {right}")
 p = percentile(hits_b, total_real_hits)
-print(f"p-value: {p}")
+print(f"p-value: {p:.2f}%")
 
 plt.show()
 
