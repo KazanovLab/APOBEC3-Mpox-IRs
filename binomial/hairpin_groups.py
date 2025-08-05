@@ -110,12 +110,6 @@ for group in groups:
             choice = min_coverage(group)
 
     fixed_hairpins += choice
-    # print("group")
-    # for i in group:
-    #     print(i.score, i.start, i.end, i.length)
-    # print("choice")
-    # for i in choice:
-    #     print(i.score, i.start, i.end, i.length)
 
 fixed_hairpins.sort(key=lambda x: x.start)
 total_len = sum([h.length for h in fixed_hairpins])
@@ -167,50 +161,6 @@ for mut in mutations_list:
     total_real_hits += hit
 print("Mutations in structures:", total_real_hits)
 
-# check
-
-# for i in hairpin_hits:
-#     h = i[1]
-    # print("mutation:", i[0], "  ", "hairpin:", h.length, h.start, h.end, h.score)
-# file = open(r"C:\Users\fedor\Downloads\check_pins (1) (1)")
-# nums = []
-# for line in file:
-#     line = line.replace("Start:", "")
-#     line = line.replace(", End:", " ")
-#     nums.append([int(i) - 1 for i in line.split()])
-# nums.sort()
-# fixed_hairpins.sort(key=lambda x: x.start)
-# flag = True
-# for i in range(3791):
-#     s1, e1 = nums[i][0], nums[i][1]
-#     h = fixed_hairpins[i]
-#     s2, e2 = h.start, h.end
-#     # print(s1, s2, e1, e2)
-#     if s1 != s2 or e1 != e2:
-#         print(s1, e1, s2, e2)
-#         flag = False
-# print(flag)
-
-
-# random mutations
-
-# hits_r = {i: 0 for i in range(mut_cnt + 1)}
-# for i in range(10_000):
-#     if i % 1000 == 0 and i:
-#         print(i)
-#     random_mut = random.sample(genome.targets(), mut_cnt)
-#     total_hits = 0
-#     for mut in random_mut:
-#         hit = 0
-#         for hairpin in fixed_hairpins:
-#             if hit_or_not(hairpin, mut):
-#                 hit = 1
-#                 break
-#         total_hits += hit
-#     hits_r[total_hits] += 1
-# print(hits_r)
-
-
 # binom
 
 hits_b = binom(targets_p)
@@ -222,25 +172,11 @@ keys = list(hits_b.keys())
 values = list(hits_b.values())
 
 plt.bar(keys, values)
-# plt.xlabel("mut")
-# plt.ylabel("experiment")
-# plt.title("random")
 positions = [i for i in range(0, len(keys))]
 labels = [keys[i] for i in range(0, len(keys))]
 plt.xticks(positions, labels, rotation=90)
 plt.grid(True, axis="y", linestyle="--", alpha=0.7)
 
-
-# threshold count random
-
-# print("random")
-# right = threshold(hits_r, 95)
-# left = threshold(hits_r, 5)
-# print(f"left threshold: {left}")
-# print(f"right threshold: {right}")
-# p = percentile(hits_r, total_real_hits)
-# print(f"p-value: {p}")
-# print()
 
 # threshold count binom
 

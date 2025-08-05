@@ -55,24 +55,6 @@ for mut in mutations_list:
 print("Mutations in structures:", total_real_hits)
 
 
-# random mutations
-
-# hits = {i: 0 for i in range(mut_cnt + 1)}
-# for i in range(10_000):
-#     if i % 1000 == 0 and i:
-#         print(i)
-#     random_mut = random.sample(genome.targets(), mut_cnt)
-#     total_hits = 0
-#     for mut in random_mut:
-#         hit = 0
-#         for hairpin in all_hairpins_list:
-#             if hairpin.start <= mut <= hairpin.end:
-#                 hit = 1
-#                 break
-#         total_hits += hit
-#     hits[total_hits] += 1
-# print(hits)
-
 # binom
 
 hits_b = binom(targets_p)
@@ -88,17 +70,6 @@ labels = [keys[i] for i in range(0, len(keys))]
 plt.xticks(positions, labels, rotation=90)
 plt.grid(True, axis="y", linestyle="--", alpha=0.7)
 
-
-
-# threshold count
-
-# print("random")
-# right = threshold(hits, 95)
-# left = threshold(hits, 5)
-# p = percentile(hits, total_real_hits)
-# print(f"left threshold: {left}")
-# print(f"right threshold: {right}")
-# print(f"percentile: {p}")
 
 # threshold count binom
 
