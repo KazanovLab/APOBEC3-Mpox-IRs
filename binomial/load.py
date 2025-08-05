@@ -8,7 +8,7 @@ hit_type = "hairpin"  # options: hairpin, spacer, ct_end, c_end
 priority_is_max = False  # max or min hirpin energy, now always False
 
 # paths
-hairpins_file_path = r"../input/irs_with_mms.txt"
+hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
 genome_file_path = r"../input/mpox_genome_seq.fna"
 mutation_path = r"../input/snp_locations.xlsx"
 
