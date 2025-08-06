@@ -15,7 +15,7 @@ This folder contains scripts for estimating statistical significance using an ap
   - The structure type to analyze (hairpin, loop, TC, or C at the 3′ end of the loop)  
   - The method for selecting overlapping structures (e.g., single most stable, all most stable non-overlapping, maximum or minimum coverage)
 
-**Usage:**  
+Usage:
 To perform the estimation, modify the desired settings in `config.yaml`, then run:
 ```bash
 python main.py
