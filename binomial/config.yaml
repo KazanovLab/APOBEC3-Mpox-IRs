@@ -1,2 +1,2 @@
-structure_type: "spacera" # options: hairpin, spacer, ct_end, c_end
-hairpin_selection_type: "all" # options: greedy, max_cov, min_cov, most_stable, all
+structure_type: "hairpin" # options: hairpin, spacer, ct_end, c_end
+hairpin_selection_type: "all" # options: most_stable, greedy, max_cov, min_cov, all

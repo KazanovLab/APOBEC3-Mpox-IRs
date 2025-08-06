@@ -162,7 +162,7 @@ genome = Genome(genome_file_path)
 mutxls = pd.read_excel(mutation_path)
 mutAPOBEC = mutxls[mutxls['isAPOBEC'] == 1]
 #mutations_list = [int(i) - 1 for i in open(mutation_path).readlines()[1:]]
-mutations_list = mutAPOBEC["Position"].to_list()
+mutations_list = (mutAPOBEC["Position"]-1).to_list()
 mut_cnt = len(mutations_list)
 
 # load hairpins from file

@@ -46,7 +46,6 @@ print(f"Genome coverage by selected spacers: {spacer_len * 100/genome.length:.2f
 
 
 # real hits
-print(mutations_list)
 
 hairpin_hits = []
 total_real_hits = 0
