@@ -5,8 +5,8 @@
 ### `/input/`
 Contains reference and supporting input data:
 - **`mpox_genome_seq.fna`** – MPXV reference genome sequence  
-- **`palindrom_analyzer_output.txt`** – Output from **PalindromeAnalyzer** (predicted inverted repeats / hairpins)  
-- **`snp_locations.xlsx`** – List of single-nucleotide mutations associated with the **2022 outbreak**
+- **`palindrom_analyzer_output.txt`** – Output from PalindromeAnalyzer (predicted inverted repeats / hairpins)  
+- **`snp_locations.xlsx`** – List of single-nucleotide mutations associated with the 2022 Mpox outbreak
 
 ### `/binomial/`
 This folder contains scripts for estimating statistical significance using an approximation by the binomial distribution.
