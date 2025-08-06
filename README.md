@@ -8,3 +8,14 @@ Contains reference and supporting input data:
 - **`palindrom_analyzer_output.txt`** – Output from **PalindromeAnalyzer** (predicted inverted repeats / hairpins)  
 - **`snp_locations.xlsx`** – List of single-nucleotide mutations associated with the **2022 outbreak**
 
+### `/binomial/`
+This folder contains scripts for estimating statistical significance using an approximation by the binomial distribution.
+
+- **`config.yaml`** – Configuration file specifying:
+  - The structure type to analyze (hairpin, loop, TC, or C at the 3′ loop)  
+  - The method for selecting overlapping structures (e.g., single most stable, all most stable non-overlapping, maximum or minimum coverage)
+
+**Usage:**  
+To perform the estimation, modify the desired settings in `config.yaml`, then run:
+```bash
+python main.py
