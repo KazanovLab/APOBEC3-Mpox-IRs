@@ -16,6 +16,11 @@ spacer_len = sum([h.spacer_length for h in all_hairpins_list])
 
 targets_p = 0
 end_targets = []
+
+if hit_type not in ["hairpin","spacer","ct_end","c_end"]:
+    print('Structure_type not in "hairpin", "spacer", "ct_end", "c_end"')
+    sys.exit(1)
+
 if hit_type == "hairpin" or hit_type == "spacer":
     j = 0
     for t in genome.targets():
@@ -41,6 +46,7 @@ print(f"Genome coverage by selected spacers: {spacer_len * 100/genome.length:.2f
 
 
 # real hits
+print(mutations_list)
 
 hairpin_hits = []
 total_real_hits = 0

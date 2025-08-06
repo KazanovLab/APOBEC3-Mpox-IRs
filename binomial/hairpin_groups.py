@@ -87,7 +87,6 @@ def most_stable(group):
     return [min(group, key=lambda x: (x.score * k, k * x.length, x.start))]
 
 
-
 # fixing hairpins
 
 groups = find_groups(all_hairpins_list)
@@ -104,7 +103,7 @@ for group in groups:
             choice = most_stable(group)
         if choice_type == "min_cov":
             choice = min_coverage(group)
-    else:
+    elif hit_type in ["spacer", "ct_end", "c_end"]:
         if choice_type == "greedy":
             choice = greedy_choose(group)
         if choice_type == "max_cov":
@@ -113,6 +112,9 @@ for group in groups:
             choice = most_stable(group)
         if choice_type == "min_cov":
             choice = min_coverage(group)
+    else:
+        print('Structure_type not in "hairpin", "spacer", "ct_end", "c_end"')
+        sys.exit(1)
 
     fixed_hairpins += choice
 

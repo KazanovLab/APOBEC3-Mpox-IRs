@@ -5,6 +5,7 @@ from math import comb
 import matplotlib.pyplot as plt
 from load import *
 from decimal import *
+import sys
 
 
 def threshold(hist, percentile, length=None):
@@ -74,6 +75,9 @@ def hit_or_not(hairpin, mut, indexes_list=None):
         return mut in indexes_list
     elif hit_type == "c_end":
         return mut in indexes_list
+    else:
+        print('Structure_type not in "hairpin", "spacer", "ct_end", "c_end"')
+        sys.exit(1)
 
 
 # function for choosing hairpins from group, max coverage area, dp
