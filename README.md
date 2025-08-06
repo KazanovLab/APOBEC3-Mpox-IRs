@@ -19,3 +19,7 @@ This folder contains scripts for estimating statistical significance using an ap
 To perform the estimation, modify the desired settings in `config.yaml`, then run:
 ```bash
 python main.py
+
+### `simulations.ipynb`  
+This is a Python Jupyter notebook containing Monte Carlo simulations.  
+All relevant comments and explanations are provided directly within the notebook.
