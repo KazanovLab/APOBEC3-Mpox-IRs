@@ -196,12 +196,3 @@ p = percentile(hits_b, total_real_hits)
 print(f"p-value: {p:.2f}%")
 
 plt.show()
-
-
-
-
-
-
-
-
-

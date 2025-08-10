@@ -167,6 +167,3 @@ mut_cnt = len(mutations_list)
 
 # load hairpins from file
 all_hairpins_list = load_hairpins(hairpins_file_path)
-
-
-
