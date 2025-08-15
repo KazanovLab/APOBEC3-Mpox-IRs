@@ -62,7 +62,7 @@ print("Mutations in structures:", total_real_hits)
 
 # binom
 
-hits_b = binom(targets_p)
+hits_b = binom(targets_p, mut_cnt)
 
 # hist
 
