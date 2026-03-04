@@ -4,6 +4,7 @@ from load import *
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from itertools import product
+from scipy.stats import binomtest
 
 import yaml
 
@@ -194,8 +195,8 @@ print("Mutations in structures:", total_real_hits)
 ##print(f"right tail: {right}")
 ##p = percentile(hits_b, total_real_hits)
 
-result = binomtest(total_real_hits, mut_cnt, targets_p)
+result = binomtest(total_real_hits, mut_cnt, targets_p, alternative='greater')
 
-print(f"p-value: {p:.2f}%")
+print(f"p-value: {result.pvalue*100:.2f}%")
 
 ##plt.show()

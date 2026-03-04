@@ -2,6 +2,7 @@ from functions import *
 import random
 from load import *
 import matplotlib.pyplot as plt
+from scipy.stats import binomtest
 
 
 groups = find_groups(all_hairpins_list)
@@ -85,8 +86,8 @@ print("Mutations in structures:", total_real_hits)
 ##print(f"right tail: {right}")
 ##p = percentile(hits_b, total_real_hits)
 
-result = binomtest(total_real_hits, mut_cnt, targets_p)
+result = binomtest(total_real_hits, mut_cnt, targets_p, alternative='greater')
 
-print(f"p-value: {result.pvalue:.2f}%")
+print(f"p-value: {result.pvalue*100:.2f}%")
 
 ##plt.show()

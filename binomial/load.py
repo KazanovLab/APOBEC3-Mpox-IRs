@@ -13,9 +13,9 @@ hit_type = params["structure_type"]  # options: hairpin, spacer, ct_end, c_end
 priority_is_max = False  # max or min hirpin energy, now always False
 
 # paths
-#hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
+hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
 #hairpins_file_path = r"../input/palindrom_analyzer_output_Sashas_energy.txt"
-hairpins_file_path = r"../input/emboss_6_30_10_1_in_PA_format.txt"
+#hairpins_file_path = r"../input/emboss_6_30_10_1_in_PA_format.txt"
 genome_file_path = r"../input/mpox_genome_seq.fna"
 mutation_path = r"../input/snp_locations.xlsx"
 
