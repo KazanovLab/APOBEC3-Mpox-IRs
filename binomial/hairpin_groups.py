@@ -170,29 +170,32 @@ print("Mutations in structures:", total_real_hits)
 
 # binom
 
-hits_b = binom(targets_p, mut_cnt)
+##hits_b = binom(targets_p, mut_cnt)
 
 
 # hist
 
-keys = list(hits_b.keys())
-values = list(hits_b.values())
+##keys = list(hits_b.keys())
+##values = list(hits_b.values())
 
-plt.bar(keys, values)
-positions = [i for i in range(0, len(keys))]
-labels = [keys[i] for i in range(0, len(keys))]
-plt.xticks(positions, labels, rotation=90)
-plt.grid(True, axis="y", linestyle="--", alpha=0.7)
+##plt.bar(keys, values)
+##positions = [i for i in range(0, len(keys))]
+##labels = [keys[i] for i in range(0, len(keys))]
+##plt.xticks(positions, labels, rotation=90)
+##plt.grid(True, axis="y", linestyle="--", alpha=0.7)
 
 
 # threshold count binom
 
-print("Binomial distribution:")
-right = threshold(hits_b, 95)
-left = threshold(hits_b, 5)
-print(f"left tail: {left}")
-print(f"right tail: {right}")
-p = percentile(hits_b, total_real_hits)
+##print("Binomial distribution:")
+##right = threshold(hits_b, 95)
+##left = threshold(hits_b, 5)
+##print(f"left tail: {left}")
+##print(f"right tail: {right}")
+##p = percentile(hits_b, total_real_hits)
+
+result = binomtest(total_real_hits, mut_cnt, targets_p)
+
 print(f"p-value: {p:.2f}%")
 
-plt.show()
+##plt.show()

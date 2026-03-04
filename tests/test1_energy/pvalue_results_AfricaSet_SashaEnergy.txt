@@ -1,0 +1,5 @@
+structure_type \ selection_type	most_stable	greedy	max_cov	min_cov	all
+hairpin	18.14	11.87	35.25	26.32	26.61
+spacer	62.19	66.46	91.78	64.30	60.06
+ct_end	43.77	23.59	28.88	64.19	28.66
+c_end	51.46	41.02	27.81	74.55	41.12
