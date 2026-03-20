@@ -13,11 +13,13 @@ hit_type = params["structure_type"]  # options: hairpin, spacer, ct_end, c_end
 priority_is_max = False  # max or min hirpin energy, now always False
 
 # paths
-hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
+#hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
+hairpins_file_path = params["hairpins_path"]
 #hairpins_file_path = r"../input/palindrom_analyzer_output_Sashas_energy.txt"
 #hairpins_file_path = r"../input/emboss_6_30_10_1_in_PA_format.txt"
 genome_file_path = r"../input/mpox_genome_seq.fna"
-mutation_path = r"../input/snp_locations.xlsx"
+#mutation_path = r"../input/snp_locations.xlsx"
+mutation_path = params["mutation_path"]
 
 # classes
 
@@ -161,24 +163,25 @@ def load_hairpins(hairpins_file_path):
 genome = Genome(genome_file_path)
 
 # load mutations from article
-# mutxls = pd.read_excel(mutation_path)
-# mutAPOBEC = mutxls[mutxls['isAPOBEC'] == 1]
-# #mutations_list = [int(i) - 1 for i in open(mutation_path).readlines()[1:]]
-# mutations_list = (mutAPOBEC["Position"]-1).to_list()
-# mut_cnt = len(mutations_list)
 
-# load mutations from independent_snps.tsv
-# columns: aln_pos | count | pos (1-based genomic position)
-# each position is added 'count' times to reflect multiplicity of observations
-independent_snps_path = r"/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC_in_mpox_IRs_Sasha/data/independent_snps.tsv"
 mutations_list = []
-with open(independent_snps_path) as _f:
-    next(_f)  # skip header
-    for _line in _f:
-        _parts = _line.split()
-        _count, _pos = int(_parts[1]), int(_parts[2])
-        mutations_list.extend([_pos - 1] * _count)  # convert to 0-based
-mut_cnt = len(mutations_list)
+if params["are_independent_events"]:
+ mutxls = pd.read_excel(mutation_path)
+ mutAPOBEC = mutxls[mutxls['isAPOBEC'] == 1]
+ #mutations_list = [int(i) - 1 for i in open(mutation_path).readlines()[1:]]
+ mutations_list = (mutAPOBEC["Position"]-1).to_list()
+ mut_cnt = len(mutations_list)
+else:
+ # load mutations from independent_snps.tsv
+ # columns: aln_pos | count | pos (1-based genomic position)
+ # each position is added 'count' times to reflect multiplicity of observations
+ with open(mutation_path) as f:
+  next(f)  # skip header
+  for line in f:
+   fields = line.split()
+   count, pos = int(fields[1]), int(fields[2])
+   mutations_list.extend([pos - 1] * count)  # convert to 0-based
+  mut_cnt = len(mutations_list)
 
 # load hairpins from file
 all_hairpins_list = load_hairpins(hairpins_file_path)

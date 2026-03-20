@@ -1,5 +1,6 @@
 from functions import *
 import random
+import math
 from load import *
 import matplotlib.pyplot as plt
 from scipy.stats import binomtest
@@ -88,6 +89,8 @@ print("Mutations in structures:", total_real_hits)
 
 result = binomtest(total_real_hits, mut_cnt, targets_p, alternative='greater')
 
-print(f"p-value: {result.pvalue*100:.2f}%")
+print(f"p-value: {result.pvalue*100:.5f}%")
+log10p = -math.log10(result.pvalue) if result.pvalue > 0 else float("inf")
+print(f"-log10(p-value): {log10p:.4f}")
 
 ##plt.show()
