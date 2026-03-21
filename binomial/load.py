@@ -165,7 +165,7 @@ genome = Genome(genome_file_path)
 # load mutations from article
 
 mutations_list = []
-if params["are_independent_events"]:
+if not params["are_independent_events"]:
  mutxls = pd.read_excel(mutation_path)
  mutAPOBEC = mutxls[mutxls['isAPOBEC'] == 1]
  #mutations_list = [int(i) - 1 for i in open(mutation_path).readlines()[1:]]

@@ -5,9 +5,10 @@ from load import *
 import matplotlib.pyplot as plt
 from scipy.stats import binomtest
 
-def calculate_pval_all:
+def calculate_pval_all(hairpin_list, structure_type):
+ hit_type = structure_type
 
- groups = find_groups(all_hairpins_list)
+ groups = find_groups(hairpins_list)
  segments = []
  for group in groups:
   l = min([h.start for h in group])
@@ -15,7 +16,7 @@ def calculate_pval_all:
   segments.append((l, r))
  segments.sort()
  total_len = sum([i[1] - i[0] + 1 for i in segments])
- spacer_len = sum([h.spacer_length for h in all_hairpins_list])
+ spacer_len = sum([h.spacer_length for h in hairpins_list])
 
  targets_p = 0
  end_targets = []
@@ -28,7 +29,7 @@ def calculate_pval_all:
   j = 0
   for t in genome.targets():
    hit = 0
-   for h in all_hairpins_list:
+   for h in hairpins_list:
     if hit_or_not(h, t):
      hit = 1
      break
@@ -36,11 +37,11 @@ def calculate_pval_all:
   targets_p = j / len(genome.targets())
 
  if hit_type == "ct_end":
-  end_targets, all_positions = genome.end_targets(all_hairpins_list)
+  end_targets, all_positions = genome.end_targets(hairpins_list)
   targets_p = len(end_targets) / len(all_positions)
 
  if hit_type == "c_end":
-  end_targets, all_positions = genome.only_c_g(all_hairpins_list)
+  end_targets, all_positions = genome.only_c_g(hairpins_list)
   targets_p = len(end_targets) / len(all_positions)
 
  print(f"Fraction of targets in structures: {targets_p * 100:.2f}%")
@@ -54,7 +55,7 @@ def calculate_pval_all:
  total_real_hits = 0
  for mut in mutations_list:
   hit = 0
-  for hairpin in all_hairpins_list:
+  for hairpin in hairpins_list:
    if hit_or_not(hairpin, mut, end_targets):
     hairpin_hits.append((mut, hairpin))
     hit = 1

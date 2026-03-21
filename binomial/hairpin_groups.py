@@ -91,9 +91,11 @@ def most_stable(group):
 
 # fixing hairpins
 
-def calculate_pval_groups:
+def calculate_pval_groups(hairpin_list, haipin_selection_type, structure_type):
+ choice_type = haipin_selection_type
+ hit_type = structure_type
 
- groups = find_groups(all_hairpins_list)
+ groups = find_groups(hairpins_list)
  print(f"Number of overlapping hairpin groups: ", len(groups))
  fixed_hairpins = []
  for group in groups:
@@ -106,16 +108,16 @@ def calculate_pval_groups:
    if choice_type == "most_stable":
     choice = most_stable(group)
    if choice_type == "min_cov":
-	choice = min_coverage(group)
+    choice = min_coverage(group)
   elif hit_type in ["spacer", "ct_end", "c_end"]:
    if choice_type == "greedy":
     choice = greedy_choose(group)
    if choice_type == "max_cov":
     choice = max_coverage_spacer(group)
    if choice_type == "most_stable":
-	choice = most_stable(group)
+    choice = most_stable(group)
    if choice_type == "min_cov":
-	choice = min_coverage(group)
+    choice = min_coverage(group)
   else:
    print('Structure_type not in "hairpin", "spacer", "ct_end", "c_end"')
    sys.exit(1)
@@ -137,7 +139,7 @@ def calculate_pval_groups:
    for h in fixed_hairpins:
     if hit_or_not(h, t):
      hit = 1
-	 break
+     break
    j += hit
   targets_p = j / len(genome.targets())
 
@@ -151,7 +153,7 @@ def calculate_pval_groups:
 
  #print(len(end_targets))
  print(f"Fraction of targets in structures: {targets_p * 100:.2f}%")
- print(f"{len(fixed_hairpins)} out of {len(all_hairpins_list)} hairpins were selected")
+ print(f"{len(fixed_hairpins)} out of {len(hairpins_list)} hairpins were selected")
  print(f"coverage percentage of fixed hairpins: {total_len * 100/genome.length}")
  print(f"coverage percentage of fixed hairpins(spacers): {spacer_len * 100/genome.length}")
 
@@ -168,7 +170,7 @@ def calculate_pval_groups:
     # print(mut, genome.sequence[mut-1:mut + 2])
     # hairpin_hits.append((mut, hairpin))
     hit = 1
-	break
+    break
   total_real_hits += hit
  print("Mutations in structures:", total_real_hits)
 
