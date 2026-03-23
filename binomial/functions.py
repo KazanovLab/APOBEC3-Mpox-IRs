@@ -64,16 +64,16 @@ def percentile(hist, value, length=None):
 # function for hit
 
 
-def hit_or_not(hairpin, mut, indexes_list=None):
-    if hit_type == "spacer":
+def hit_or_not(hittype, hairpin, mut, indexes_list=None):
+    if hittype == "spacer":
         spacer_index = hairpin.spacer_index
         l, r = spacer_index
         return l <= mut <= r
-    elif hit_type == "hairpin":
+    elif hittype == "hairpin":
         return hairpin.start <= mut <= hairpin.end
-    elif hit_type == "ct_end":
+    elif hittype == "ct_end":
         return mut in indexes_list
-    elif hit_type == "c_end":
+    elif hittype == "c_end":
         return mut in indexes_list
     else:
         print('Structure_type not in "hairpin", "spacer", "ct_end", "c_end"')

@@ -91,8 +91,8 @@ def most_stable(group):
 
 # fixing hairpins
 
-def calculate_pval_groups(hairpin_list, haipin_selection_type, structure_type):
- choice_type = haipin_selection_type
+def calculate_pval_groups(hairpins_list, hairpin_selection_type, structure_type):
+ choice_type = hairpin_selection_type
  hit_type = structure_type
 
  groups = find_groups(hairpins_list)
@@ -137,7 +137,7 @@ def calculate_pval_groups(hairpin_list, haipin_selection_type, structure_type):
   for t in genome.targets():
    hit = 0
    for h in fixed_hairpins:
-    if hit_or_not(h, t):
+    if hit_or_not(hit_type, h, t):
      hit = 1
      break
    j += hit
@@ -166,7 +166,7 @@ def calculate_pval_groups(hairpin_list, haipin_selection_type, structure_type):
  for mut in mutations_list:
   hit = 0
   for hairpin in fixed_hairpins:
-   if hit_or_not(hairpin, mut, end_targets):
+   if hit_or_not(hit_type, hairpin, mut, end_targets):
     # print(mut, genome.sequence[mut-1:mut + 2])
     # hairpin_hits.append((mut, hairpin))
     hit = 1

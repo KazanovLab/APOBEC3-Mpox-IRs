@@ -34,12 +34,6 @@ print(f"Mutations     : {load.mut_cnt:,}")
 print(f"Hairpins      : {len(load.all_hairpins_list):,}")
 print()
 
-# load.py exports the hairpin list as 'all_hairpins_list', but the updated
-# calculate_pval_* functions reference it internally as 'hairpins_list'.
-# Inject the name into both module namespaces so the functions can find it.
-ah.hairpins_list = load.all_hairpins_list
-hg.hairpins_list = load.all_hairpins_list
-
 # ── helper: parse captured stdout from calculate_pval_* functions ──────────────
 def parse_output(text):
     """Extract hits, frac_pct, pvalue from printed function output."""
@@ -112,7 +106,9 @@ for r in results:
     log10p_str = ("inf" if math.isinf(r["log10p"]) else
                   "NA"  if math.isnan(r["log10p"]) else
                   f"{r['log10p']:.4f}")
-    pval_str   = "NA"  if math.isnan(r["pvalue"])  else f"{r['pvalue']:.6e}"
+    pval_str   = ("NA" if math.isnan(r["pvalue"]) else
+                  f"{r['pvalue']:.6f}" if r["pvalue"] >= 1e-3 else
+                  f"{r['pvalue']:.6e}")
     hits_str   = "ERR" if (r["hits"] is None or (isinstance(r["hits"], float) and math.isnan(r["hits"]))) else str(int(r["hits"]))
     frac_str   = "NA"  if math.isnan(r["frac_pct"]) else f"{r['frac_pct']:.4f}"
 

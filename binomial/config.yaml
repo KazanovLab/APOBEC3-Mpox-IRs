@@ -1,5 +1,10 @@
+genome_path: "/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC3-Mpox-IRs/input/mpox_genome_seq.fna"
 structure_type: "ct_end" # options: hairpin, spacer, ct_end, c_end
 hairpin_selection_type: "most_stable" # options: most_stable, greedy, max_cov, min_cov, all
 mutation_path: "/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC_in_mpox_IRs_Sasha/data/independent_snps.tsv"
 are_independent_events: True
-hairpins_path: "/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC3-Mpox-IRs/input/palindrom_analyzer_output.txt"
+#hairpins_path: "/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC3-Mpox-IRs/input/palindrom_analyzer_output.txt"
+stem_min_lenght: 6
+stem_max_length: 30
+loop_length: 10
+number_mismatches: 1

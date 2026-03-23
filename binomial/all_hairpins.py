@@ -5,7 +5,7 @@ from load import *
 import matplotlib.pyplot as plt
 from scipy.stats import binomtest
 
-def calculate_pval_all(hairpin_list, structure_type):
+def calculate_pval_all(hairpins_list, structure_type):
  hit_type = structure_type
 
  groups = find_groups(hairpins_list)
@@ -30,7 +30,7 @@ def calculate_pval_all(hairpin_list, structure_type):
   for t in genome.targets():
    hit = 0
    for h in hairpins_list:
-    if hit_or_not(h, t):
+    if hit_or_not(hit_type, h, t):
      hit = 1
      break
    j += hit
@@ -56,7 +56,7 @@ def calculate_pval_all(hairpin_list, structure_type):
  for mut in mutations_list:
   hit = 0
   for hairpin in hairpins_list:
-   if hit_or_not(hairpin, mut, end_targets):
+   if hit_or_not(hit_type, hairpin, mut, end_targets):
     hairpin_hits.append((mut, hairpin))
     hit = 1
     break
