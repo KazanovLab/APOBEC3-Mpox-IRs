@@ -87,6 +87,7 @@ for structure_type, selection_type in product(STRUCTURE_TYPES, SELECTION_TYPES):
     results.append(dict(
         structure_type=structure_type,
         selection_type=selection_type,
+        mut_cnt=load.mut_cnt,
         hits=hits,
         frac_pct=frac,
         pvalue=pvalue,
@@ -96,11 +97,12 @@ for structure_type, selection_type in product(STRUCTURE_TYPES, SELECTION_TYPES):
     print(f"  → -log10(p) = {log10p_str}\n")
 
 # ── format table ──────────────────────────────────────────────────────────────
-col_w = dict(structure_type=14, selection_type=12, hits=6,
+col_w = dict(structure_type=14, selection_type=12, mut_cnt=8, hits=6,
              frac_pct=14, pvalue=14, log10p=14)
 
 header = (f"{'structure_type':<{col_w['structure_type']}}  "
           f"{'selection_type':<{col_w['selection_type']}}  "
+          f"{'mut_cnt':>{col_w['mut_cnt']}}  "
           f"{'hits':>{col_w['hits']}}  "
           f"{'frac_targets_%':>{col_w['frac_pct']}}  "
           f"{'p_value':>{col_w['pvalue']}}  "
@@ -121,6 +123,7 @@ for r in results:
     lines.append(
         f"{r['structure_type']:<{col_w['structure_type']}}  "
         f"{r['selection_type']:<{col_w['selection_type']}}  "
+        f"{r['mut_cnt']:>{col_w['mut_cnt']}}  "
         f"{hits_str:>{col_w['hits']}}  "
         f"{frac_str:>{col_w['frac_pct']}}  "
         f"{pval_str:>{col_w['pvalue']}}  "
