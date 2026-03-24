@@ -163,6 +163,28 @@ def load_hairpins(hairpins_file_path):
     return hairpins_list
 
 
+def genome_coverage(hairpin_list, genome_length):
+    """Return the fraction of genome covered by hairpins (0.0–1.0).
+
+    Overlapping hairpins are merged before counting, so each base is
+    counted only once.  hairpin.start and hairpin.end are 0-based,
+    inclusive on both ends.
+    """
+    if not hairpin_list:
+        return 0.0
+    intervals = sorted((h.start, h.end) for h in hairpin_list)
+    covered = 0
+    cur_start, cur_end = intervals[0]
+    for start, end in intervals[1:]:
+        if start <= cur_end + 1:
+            cur_end = max(cur_end, end)
+        else:
+            covered += cur_end - cur_start + 1
+            cur_start, cur_end = start, end
+    covered += cur_end - cur_start + 1
+    return covered / genome_length
+
+
 # load genome from file
 genome = Genome(genome_file_path)
 
