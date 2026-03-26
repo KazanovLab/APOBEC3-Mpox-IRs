@@ -21,6 +21,22 @@ import yaml
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+def _genome_coverage_pct(hairpin_list, genome_length):
+    """Fraction of genome covered by hairpins (merged intervals), as percent."""
+    if not hairpin_list:
+        return 0.0
+    intervals = sorted((h.Start, h.End) for h in hairpin_list)
+    covered = 0
+    cur_s, cur_e = intervals[0]
+    for s, e in intervals[1:]:
+        if s < cur_e:
+            cur_e = max(cur_e, e)
+        else:
+            covered += cur_e - cur_s
+            cur_s, cur_e = s, e
+    covered += cur_e - cur_s
+    return covered * 100 / genome_length
+
 # emboss.py / hairpins.py open config.yaml and nn_coefs/ via relative paths,
 # so we must run from inside the binomial directory.
 os.chdir(BINOMIAL_DIR)
@@ -79,14 +95,17 @@ def _load_hairpins(pa_file_path):
 stem_max_values = list(range(6, 51))
 emboss_dir      = BINOMIAL_DIR / "emboss"
 
+GENOME_LENGTH = len(GENOME_SEQ)
+
 def run_series(stem_min, num_mismatches):
     """Run the full stem_max loop for given stem_min and mismatch count.
-    Returns list of hairpin counts (method 1) after cross-checking with method 2."""
-    counts = []
-    label  = f"stem_min={stem_min}, mismatches={num_mismatches}"
+    Returns (counts, coverages) using method 1, cross-checked with method 2."""
+    counts    = []
+    coverages = []
+    label     = f"stem_min={stem_min}, mismatches={num_mismatches}"
     print(f"\n── {label} ──")
-    print(f"{'stem_max':>8}  {'method1':>9}  {'method2':>9}  {'match':>5}")
-    print("-" * 40)
+    print(f"{'stem_max':>8}  {'method1':>9}  {'method2':>9}  {'match':>5}  {'cov%':>7}")
+    print("-" * 52)
     for stem_max in stem_max_values:
         pa_file     = get_palindrome(stem_min, stem_max, LOOP_LENGTH, num_mismatches)
         tag         = f"mm{num_mismatches}_stemin{stem_min}_stemax{stem_max}_spacer{LOOP_LENGTH}"
@@ -94,6 +113,7 @@ def run_series(stem_min, num_mismatches):
 
         pins_m1 = HairpinList.from_emboss(str(emboss_file), GENOME_SEQ)
         n_m1    = len(pins_m1)
+        cov     = _genome_coverage_pct(pins_m1, GENOME_LENGTH)
 
         pins_m2 = _load_hairpins(pa_file)
         if pins_m2 is None:
@@ -106,17 +126,26 @@ def run_series(stem_min, num_mismatches):
             print(f"  [DIAGNOSTIC] stem_max={stem_max}: "
                   f"method1={n_m1} hairpins vs method2={n_m2} hairpins")
 
-        print(f"{stem_max:>8}  {n_m1:>9}  {str(n_m2):>9}  {match:>5}")
+        print(f"{stem_max:>8}  {n_m1:>9}  {str(n_m2):>9}  {match:>5}  {cov:>6.2f}%")
         counts.append(n_m1)
-    return counts
+        coverages.append(cov)
+    return counts, coverages
 
-counts_min6_mm1 = run_series(STEM_MIN, NUM_MISMATCHES)   # stem_min=6, mismatches=1
+counts_min6_mm1, coverages_min6_mm1 = run_series(STEM_MIN, NUM_MISMATCHES)
 
 # ── plot ──────────────────────────────────────────────────────────────────────
 fig, ax = plt.subplots(figsize=(7, 4))
 
 ax.plot(stem_max_values, counts_min6_mm1,
         marker="o", markersize=4, linewidth=1.5, color="#2166AC")
+
+ax2 = ax.twinx()
+ax2.plot(stem_max_values, coverages_min6_mm1,
+         marker="s", markersize=4, linewidth=1.5, color="#D6604D", linestyle="--")
+ax2.set_ylim(0, 100)
+ax2.set_ylabel("Genome coverage (%)", fontsize=12, color="#D6604D")
+ax2.tick_params(axis="y", labelcolor="#D6604D", labelsize=10)
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{x:.0f}%"))
 
 ax.set_xlabel("Maximum stem length (bp)", fontsize=12)
 ax.set_ylabel("Number of hairpins", fontsize=12)
