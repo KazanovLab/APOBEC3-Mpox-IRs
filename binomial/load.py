@@ -17,7 +17,7 @@ priority_is_max = False  # max or min hirpin energy, now always False
 #hairpins_file_path = r"../input/palindrom_analyzer_output.txt"
 if "hairpins_path" in params:
  hairpins_file_path = params["hairpins_path"]
-else
+else:
  hairpins_file_path = get_palindrome(params["stem_min_lenght"], params["stem_max_length"], params["loop_length"], params["number_mismatches"])
 
 #hairpins_file_path = r"../input/palindrom_analyzer_output_Sashas_energy.txt"

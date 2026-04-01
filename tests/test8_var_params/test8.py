@@ -40,8 +40,11 @@ import matplotlib.colors as mcolors
 from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
 
 # ── grid parameters ───────────────────────────────────────────────────────────
-LOOP_VALUES     = [2, 5, 8, 11, 14, 17, 20]
-STEM_MAX_VALUES = [6, 7, 8, 9, 10, 11, 12]
+LOOP_VALUES = [2, 5, 8, 11, 14, 17, 20]
+
+def stem_max_values(stem_min):
+    """Y-axis range: stem_min .. stem_min+6 (7 values)."""
+    return list(range(stem_min, stem_min + 7))
 STRUCTURE_TYPE  = "ct_end"
 SELECTION_TYPE  = "most_stable"
 
@@ -56,12 +59,13 @@ PANELS = [
 # ── compute heatmap for one (stem_min, mismatches) combination ─────────────────
 def compute_heatmap(stem_min, num_mismatches, label):
     """Return (n_rows x n_cols) array of -log10(p-value)."""
+    s_max_values = stem_max_values(stem_min)
     print(f"\n{'='*60}")
     print(f"Panel: {label}")
     print(f"{'stem_max':>8}  {'loop':>5}  {'-log10p':>10}")
     print("-" * 32)
-    matrix = np.full((len(STEM_MAX_VALUES), len(LOOP_VALUES)), np.nan)
-    for r, stem_max in enumerate(STEM_MAX_VALUES):
+    matrix = np.full((len(s_max_values), len(LOOP_VALUES)), np.nan)
+    for r, stem_max in enumerate(s_max_values):
         for c, loop_len in enumerate(LOOP_VALUES):
             # run EMBOSS + create PA file if needed
             pa_file = get_palindrome(stem_min, stem_max, loop_len, num_mismatches)
@@ -78,10 +82,12 @@ def compute_heatmap(stem_min, num_mismatches, label):
     return matrix
 
 # ── run all panels ─────────────────────────────────────────────────────────────
-matrices = []
+matrices    = []
+y_labels_per_panel = []
 for stem_min, mm, label in PANELS:
     mat = compute_heatmap(stem_min, mm, label)
     matrices.append(mat)
+    y_labels_per_panel.append([str(v) for v in stem_max_values(stem_min)])
 
 # ── plot ──────────────────────────────────────────────────────────────────────
 SIG_THRESH = 1.3   # -log10(0.05)
@@ -101,48 +107,65 @@ cmap_custom   = LinearSegmentedColormap.from_list(
 )
 norm = TwoSlopeNorm(vmin=vmin, vcenter=SIG_THRESH, vmax=vmax)
 
-fig, axes = plt.subplots(2, 2, figsize=(12, 8))
-axes = axes.flatten()
-
 x_labels = [str(v) for v in LOOP_VALUES]
-y_labels  = [str(v) for v in STEM_MAX_VALUES]
 
-for ax, mat, (stem_min, mm, label) in zip(axes, matrices, PANELS):
+out_dir = Path(__file__).parent
+
+def draw_panel(ax, mat, y_labels, label):
     im = ax.imshow(mat, aspect="auto", origin="lower",
                    cmap=cmap_custom, norm=norm)
-
     ax.set_xticks(range(len(LOOP_VALUES)))
     ax.set_xticklabels(x_labels, fontsize=9)
-    ax.set_yticks(range(len(STEM_MAX_VALUES)))
+    ax.set_yticks(range(len(y_labels)))
     ax.set_yticklabels(y_labels, fontsize=9)
     ax.set_xlabel("Maximum loop length (nt)", fontsize=10)
     ax.set_ylabel("Maximum stem length (bp)", fontsize=10)
     ax.set_title(label, fontsize=11, fontweight="bold")
-
-    # annotate cells with values
-    for r in range(len(STEM_MAX_VALUES)):
+    for r in range(len(y_labels)):
         for c in range(len(LOOP_VALUES)):
             val = mat[r, c]
             if not np.isnan(val):
-                # white text on dark (significant) cells, black on light
                 text_color = "white" if val > SIG_THRESH + (vmax - SIG_THRESH) * 0.5 else "black"
                 ax.text(c, r, f"{val:.1f}", ha="center", va="center",
                         fontsize=10, fontweight="bold", color=text_color)
-
-    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar = ax.get_figure().colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     cbar.set_label("−log₁₀(p-value)", fontsize=9)
     cbar.ax.tick_params(labelsize=8)
-    # mark significance threshold on colorbar
     cbar.ax.axhline(y=SIG_THRESH, color="black", linewidth=1.2, linestyle="--")
     cbar.ax.text(2.6, SIG_THRESH, "p=0.05", va="center", fontsize=7.5, color="black")
+
+# ── combined 2x2 figure ────────────────────────────────────────────────────────
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+axes = axes.flatten()
+
+for ax, mat, (stem_min, mm, label), y_labels in zip(axes, matrices, PANELS, y_labels_per_panel):
+    draw_panel(ax, mat, y_labels, label)
 
 fig.suptitle(f"Binomial test significance ({STRUCTURE_TYPE}, {SELECTION_TYPE})\n"
              "Color: −log₁₀(p-value)",
              fontsize=12, y=1.01)
-
 plt.tight_layout()
-
-out_dir = Path(__file__).parent
 plt.savefig(out_dir / "heatmap_pvalue.pdf", dpi=150, bbox_inches="tight")
 plt.savefig(out_dir / "heatmap_pvalue.png", dpi=150, bbox_inches="tight")
-print("\nPlot saved: heatmap_pvalue.pdf / .png")
+plt.close()
+print("Plot saved: heatmap_pvalue.pdf / .png")
+
+# ── individual figures ─────────────────────────────────────────────────────────
+panel_filenames = [
+    "heatmap_stem6_mm1",
+    "heatmap_stem6_mm0",
+    "heatmap_stem5_mm1",
+    "heatmap_stem5_mm0",
+]
+
+for mat, (stem_min, mm, label), y_labels, fname in zip(matrices, PANELS, y_labels_per_panel, panel_filenames):
+    fig, ax = plt.subplots(figsize=(6, 5))
+    draw_panel(ax, mat, y_labels, label)
+    fig.suptitle(f"Binomial test significance ({STRUCTURE_TYPE}, {SELECTION_TYPE})\n"
+                 "Color: −log₁₀(p-value)",
+                 fontsize=12, y=1.01)
+    plt.tight_layout()
+    plt.savefig(out_dir / f"{fname}.pdf", dpi=150, bbox_inches="tight")
+    plt.savefig(out_dir / f"{fname}.png", dpi=150, bbox_inches="tight")
+    plt.close()
+    print(f"Plot saved: {fname}.pdf / .png")

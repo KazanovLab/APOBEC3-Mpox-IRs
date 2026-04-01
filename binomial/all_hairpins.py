@@ -44,6 +44,8 @@ def calculate_pval_all(hairpins_list, structure_type):
   end_targets, all_positions = genome.only_c_g(hairpins_list)
   targets_p = len(end_targets) / len(all_positions)
 
+ targets_in_struct = j if hit_type in ["hairpin", "spacer"] else len(end_targets)
+ print(f"Targets in structures: {targets_in_struct}")
  print(f"Fraction of targets in structures: {targets_p * 100:.2f}%")
  print(f"Genome coverage by selected hairpins: {total_len * 100/genome.length:.2f}%")
  print(f"Genome coverage by selected spacers: {spacer_len * 100/genome.length:.2f}%")

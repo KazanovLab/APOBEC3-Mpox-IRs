@@ -1,0 +1,197 @@
+
+================================================================================
+  stem=5  loop=3  (25 ct_end hairpins: 4 mutated [5 observations], 21 unmutated)
+================================================================================
+
+     pos    score         mut   TC?   3rd   GA?   3rd  sequence
+--------------------------------------------------------------------------------
+   17430    10.80           -   yes     A    no     -  ACGAT CTC ATCGT
+   29720     9.70           -   yes     A    no     -  AAAAT ATC ATTTT
+   33783    10.20       GA(1)    no     -   yes     A  ATCAT GAG ATGAT
+   37832     9.70           -   yes     T    no     -  TTCTA TTC TAGAA
+   38655    10.80       TC(1)   yes     A    no     -  GTATT CTC AATAC
+   42482    10.20           -    no     -   yes     A  TATTT GAG AAATA
+   51944    10.20           -   yes     A    no     -  CTAGT TTC ACTAG
+   52214     9.70           -   yes     T    no     -  CTATA ATC TATAG
+   56637    12.00       TC(2)   yes     C    no     -  TGTAG CTC CTACA
+   56847     9.10           -    no     -   yes     A  CTTAT GAT ATAAG
+   57083     9.10           -    no     -   yes     A  GCTTT GAT AAAGC
+   57344     9.70           -   yes     T    no     -  TTAAA TTC TTTAA
+   62615     9.60           -    no     -   yes     A  ATAGT GAA ACTAT
+   64289    10.10           -   yes     G    no     -  AAATC ATC GATTT
+   70770     9.70           -    no     -   yes     G  TAGAC GAT GTCTA
+   75560     9.10           -    no     -   yes     A  ATATT GAT AATAT
+   88703     9.10           -    no     -   yes     T  AAAAA GAA TTTTT
+   92998    10.30           -    no     -   yes     T  TTATA GAG TATAA
+   93371     9.30           -    no     -   yes     T  ATTTA GAT TAAAT
+   96284     9.30           -    no     -   yes     T  AAATA GAT TATTT
+  108666    10.80           -   yes     A    no     -  CATTT CTC AAATG
+  136556     9.70       TC(1)   yes     A    no     -  ATGAT ATC ATCAT
+  165300     9.60           -    no     -   yes     A  TCTGT GAA ACAGA
+  165529    10.10           -    no     -   yes     C  ACACG GAT CGTGT
+  181488    10.10           -   yes     G    no     -  GTAGC ATC GCTAC
+
+── Energy (ΔG) ────────────────────────────────────────────────────────────
+  Mutated   : 4 hairpins / 5 observations  mean= 10.940  median= 10.800  sd= 1.043  min=  9.70  max= 12.00
+              values: [9.7, 10.2, 10.8, 12.0, 12.0]
+  Unmutated : 21 hairpins / 21 observations  mean=  9.776  median=  9.700  sd= 0.520  min=  9.10  max= 10.80
+              values: [9.1, 9.1, 9.1, 9.1, 9.3, 9.3, 9.6, 9.6, 9.7, 9.7, 9.7, 9.7, 9.7, 10.1, 10.1, 10.1, 10.2, 10.2, 10.3, 10.8, 10.8]
+
+── Statistical tests (mutated vs unmutated energy) ────────────────────────────
+  mean difference (mut − unm): +1.164
+  Mann-Whitney U:  stat=    89.5  p=0.0164  rank-biserial r=-0.705
+  Welch t-test:    stat=2.424  p=0.0656
+  Permutation:     p=0.0068
+
+── Third nucleotide after TC (T[C]x) ────────────────────────────────────────
+  Mutated   : {'A': 3, 'C': 2}
+  Unmutated : {'A': 10, 'C': 1, 'G': 3, 'T': 7}
+
+================================================================================
+  stem=6  loop=3  (5 ct_end hairpins: 1 mutated [3 observations], 4 unmutated)
+================================================================================
+
+     pos    score         mut   TC?   3rd   GA?   3rd  sequence
+--------------------------------------------------------------------------------
+   14062    10.10           -   yes     G    no     -  TATATC ATC GATATA
+   29879    11.40       TC(3)   yes     G    no     -  TTATCC CTC GGATAA
+   69765     9.70           -   yes     A    no     -  GAGTAT ATC ATACTC
+  107034     9.70           -   yes     T    no     -  AACAAA TTC TTTGTT
+  188767     9.70           -   yes     T    no     -  GTTAGA ATC TCTAAC
+
+── Energy (ΔG) ────────────────────────────────────────────────────────────
+  Mutated   : 1 hairpins / 3 observations  mean= 11.400  median= 11.400  sd= 0.000  min= 11.40  max= 11.40
+              values: [11.4, 11.4, 11.4]
+  Unmutated : 4 hairpins / 4 observations  mean=  9.800  median=  9.700  sd= 0.200  min=  9.70  max= 10.10
+              values: [9.7, 9.7, 9.7, 10.1]
+
+── Statistical tests (mutated vs unmutated energy) ────────────────────────────
+  mean difference (mut − unm): +1.600
+  Mann-Whitney U:  stat=    12.0  p=0.0357  rank-biserial r=-1.000
+  Welch t-test:    stat=16.000  p=5.31e-04
+  Permutation:     p=0.0571
+
+── Third nucleotide after TC (T[C]x) ────────────────────────────────────────
+  Mutated   : {'G': 3}
+  Unmutated : {'A': 1, 'G': 1, 'T': 2}
+
+================================================================================
+  stem=7  loop=3  (8 ct_end hairpins: 4 mutated [9 observations], 4 unmutated)
+================================================================================
+
+     pos    score         mut   TC?   3rd   GA?   3rd  sequence
+--------------------------------------------------------------------------------
+   13677     9.70       TC(2)   yes     T    no     -  TTATATA TTC TATATAA
+   23344    10.10       TC(3)   yes     G    no     -  TCTTGAC ATC GTCAAGA
+   43495     9.70           -   yes     T    no     -  AAAAAAA ATC TTTTTTT
+  125393     9.10           -    no     -   yes     T  TTAAATA GAA TATTTAA
+  147452     9.70       GA(3)    no     -   yes     G  TATTGAC GAT GTCAATA
+  148312     9.10       GA(1)    no     -   yes     A  TAGTGGT GAT ACCACTA
+  152430     9.60           -    no     -   yes     A  CGATAAT GAA ATTATCG
+  158942     9.70           -   yes     A    no     -  TACTAAT ATC ATTAGTA
+
+── Energy (ΔG) ────────────────────────────────────────────────────────────
+  Mutated   : 4 hairpins / 9 observations  mean=  9.767  median=  9.700  sd= 0.316  min=  9.10  max= 10.10
+              values: [9.1, 9.7, 9.7, 9.7, 9.7, 9.7, 10.1, 10.1, 10.1]
+  Unmutated : 4 hairpins / 4 observations  mean=  9.525  median=  9.650  sd= 0.287  min=  9.10  max=  9.70
+              values: [9.1, 9.6, 9.7, 9.7]
+
+── Statistical tests (mutated vs unmutated energy) ────────────────────────────
+  mean difference (mut − unm): +0.242
+  Mann-Whitney U:  stat=    27.5  p=0.1280  rank-biserial r=-0.528
+  Welch t-test:    stat=1.357  p=0.2208
+  Permutation:     p=0.2629
+
+── Third nucleotide after TC (T[C]x) ────────────────────────────────────────
+  Mutated   : {'A': 1, 'G': 6, 'T': 2}
+  Unmutated : {'A': 2, 'T': 2}
+
+================================================================================
+  stem=5  loop=4  (27 ct_end hairpins: 3 mutated [6 observations], 24 unmutated)
+================================================================================
+
+     pos    score         mut   TC?   3rd   GA?   3rd  sequence
+--------------------------------------------------------------------------------
+   17766     9.60           -    no     -   yes     T  GAAAA GATA TTTTC
+   22611     9.60           -    no     -   yes     T  ATAAA GATA TTTAT
+   24640    10.10           -    no     -   yes     G  TTTTC GATA GAAAA
+   31666    11.70           -   yes     C    no     -  AGAAG ATTC CTTCT
+   35129    11.00           -    no     -   yes     T  ACAGA GACA TCTGT
+   45266    11.30           -   yes     T    no     -  TAATA TCTC TATTA
+   53908    11.30           -    no     -   yes     C  AGAAG GAAA CTTCT
+   66167    10.70           -   yes     T    no     -  ATTTA TTTC TAAAT
+   83810    10.30           -    no     -   yes     T  TTCTA GAAT TAGAA
+   84928    10.10           -    no     -   yes     A  TATCT GATA AGATA
+   92155    10.30           -    no     -   yes     T  GACTA GAAT TAGTC
+   92439    11.10           -    no     -   yes     T  ATAAA GACT TTTAT
+   95642    10.20           -   yes     T    no     -  ATCTA TATC TAGAT
+  105608    10.30           -    no     -   yes     T  TATTA GATT TAATA
+  117582    11.50       TC(1)   yes     A    no     -  AATCT ACTC AGATT
+  119489    11.00           -    no     -   yes     T  ATCTA GACA TAGAT
+  120386    11.20           -    no     -   yes     A  GATTT GAAG AAATC
+  130231    10.70           -   yes     T    no     -  GAATA TTTC TATTC
+  144396    11.10           -    no     -   yes     C  GAATG GATT CATTC
+  151654    10.90           -    no     -   yes     A  TAGAT GACT ATCTA
+  154093    11.70       GA(1)    no     -   yes     G  TTAAC GATG GTTAA
+  163230    11.80           -   yes     T    no     -  TAATA CATC TATTA
+  166718    10.30           -    no     -   yes     T  TTTAA GATT TTAAA
+  168096    10.70           -    no     -   yes     G  ACATC GAAT GATGT
+  175885    10.10           -    no     -   yes     A  ATAAT GAAT ATTAT
+  188483    12.50       TC(4)   yes     G    no     -  TCCTC CATC GAGGA
+  190273    10.70           -    no     -   yes     T  ATTCA GAGA TGAAT
+
+── Energy (ΔG) ────────────────────────────────────────────────────────────
+  Mutated   : 3 hairpins / 6 observations  mean= 12.200  median= 12.500  sd= 0.469  min= 11.50  max= 12.50
+              values: [11.5, 11.7, 12.5, 12.5, 12.5, 12.5]
+  Unmutated : 24 hairpins / 24 observations  mean= 10.671  median= 10.700  sd= 0.593  min=  9.60  max= 11.80
+              values: [9.6, 9.6, 10.1, 10.1, 10.1, 10.2, 10.3, 10.3, 10.3, 10.3, 10.7, 10.7, 10.7, 10.7, 10.9, 11.0, 11.0, 11.1, 11.1, 11.2, 11.3, 11.3, 11.7, 11.8]
+
+── Statistical tests (mutated vs unmutated energy) ────────────────────────────
+  mean difference (mut − unm): +1.529
+  Mann-Whitney U:  stat=   140.5  p=3.99e-04  rank-biserial r=-0.951
+  Welch t-test:    stat=6.750  p=6.57e-05
+  Permutation:     p=2.00e-04
+
+── Third nucleotide after TC (T[C]x) ────────────────────────────────────────
+  Mutated   : {'A': 1, 'G': 5}
+  Unmutated : {'A': 4, 'C': 3, 'G': 2, 'T': 15}
+
+================================================================================
+  stem=6  loop=4  (7 ct_end hairpins: 2 mutated [2 observations], 5 unmutated)
+================================================================================
+
+     pos    score         mut   TC?   3rd   GA?   3rd  sequence
+--------------------------------------------------------------------------------
+    1120    10.10       GA(1)    no     -   yes     G  GATGTC GATA GACATC
+   41945    10.70           -   yes     T    no     -  AAATGA ATTC TCATTT
+   68341    11.40           -    no     -   yes     T  CTTCTA GATG TAGAAG
+   98116    10.70           -    no     -   yes     T  CCGGAA GAGA TTCCGG
+  153705    11.80           -   yes     A    no     -  ATCTTT TCTC AAAGAT
+  185644    10.70           -   yes     T    no     -  ATATTA TTTC TAATAT
+  196075    10.90       TC(1)   yes     G    no     -  GATGTC TATC GACATC
+
+── Energy (ΔG) ────────────────────────────────────────────────────────────
+  Mutated   : 2 hairpins / 2 observations  mean= 10.500  median= 10.500  sd= 0.566  min= 10.10  max= 10.90
+              values: [10.1, 10.9]
+  Unmutated : 5 hairpins / 5 observations  mean= 11.060  median= 10.700  sd= 0.513  min= 10.70  max= 11.80
+              values: [10.7, 10.7, 10.7, 11.4, 11.8]
+
+── Statistical tests (mutated vs unmutated energy) ────────────────────────────
+  mean difference (mut − unm): -0.560
+  Mann-Whitney U:  stat=     3.0  p=0.5466  rank-biserial r=+0.400
+  Welch t-test:    stat=-1.215  p=0.3652
+  Permutation:     p=0.3810
+
+── Third nucleotide after TC (T[C]x) ────────────────────────────────────────
+  Mutated   : {'G': 2}
+  Unmutated : {'A': 1, 'T': 4}
+
+================================================================================
+  COMBINED (all pairs pooled)
+================================================================================
+  Mutated  : 14 hairpins / 25 observations  mean=10.840  median=10.800  sd=1.104
+  Unmutated: 58 hairpins  mean=10.241  median=10.150  sd=0.726
+  mean diff (mut − unm): +0.599
+  Mann-Whitney U: stat=950.5  p=0.0247  rank-biserial r=-0.311
+  Welch t-test:   stat=2.489  p=0.0180
+  Permutation:    p=0.0044

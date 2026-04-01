@@ -19,12 +19,22 @@ BINOMIAL_DIR = Path(__file__).parent.parent.parent / "binomial"
 OUT_PATH     = Path(__file__).parent / "results.txt"
 
 # ── set up path and working directory ─────────────────────────────────────────
-# load.py uses a relative path for the genome file, so we must be in binomial/
 os.chdir(BINOMIAL_DIR)
 sys.path.insert(0, str(BINOMIAL_DIR))
 
-# ── import modules (genome, mutations, hairpins are loaded once here) ─────────
+# ── force EMBOSS mode: remove hairpins_path from config params if present ─────
+import yaml as _yaml
+_orig_safe_load = _yaml.safe_load
+def _safe_load_no_pa(stream):
+    result = _orig_safe_load(stream)
+    if isinstance(result, dict):
+        result.pop("hairpins_path", None)
+    return result
+_yaml.safe_load = _safe_load_no_pa
+
 import load
+
+_yaml.safe_load = _orig_safe_load   # restore
 import functions
 import all_hairpins as ah
 import hairpin_groups as hg

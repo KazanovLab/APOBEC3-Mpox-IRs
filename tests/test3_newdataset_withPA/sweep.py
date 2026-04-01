@@ -15,16 +15,27 @@ import re
 from itertools import product
 from pathlib import Path
 
-BINOMIAL_DIR = Path(__file__).parent.parent.parent / "binomial"
-OUT_PATH     = Path(__file__).parent / "results.txt"
+BINOMIAL_DIR  = Path(__file__).parent.parent.parent / "binomial"
+OUT_PATH      = Path(__file__).parent / "results.txt"
+PA_FILE_PATH  = "/Users/mar/BIO/PROJECTS/MPOX/COMMENT/APOBEC3-Mpox-IRs/input/palindrom_analyzer_output.txt"
 
 # ── set up path and working directory ─────────────────────────────────────────
-# load.py uses a relative path for the genome file, so we must be in binomial/
 os.chdir(BINOMIAL_DIR)
 sys.path.insert(0, str(BINOMIAL_DIR))
 
-# ── import modules (genome, mutations, hairpins are loaded once here) ─────────
+# ── force PA mode: inject hairpins_path into config params ────────────────────
+import yaml as _yaml
+_orig_safe_load = _yaml.safe_load
+def _safe_load_with_pa(stream):
+    result = _orig_safe_load(stream)
+    if isinstance(result, dict):
+        result["hairpins_path"] = PA_FILE_PATH
+    return result
+_yaml.safe_load = _safe_load_with_pa
+
 import load
+
+_yaml.safe_load = _orig_safe_load   # restore
 import functions
 import all_hairpins as ah
 import hairpin_groups as hg
